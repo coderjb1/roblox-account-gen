@@ -10,6 +10,7 @@
 ## Installation
 
 1. **Clone the repository:**
+
 git clone https://github.com/coderjb1/roblox-account-gen.git
 cd roblox-account-gen
 
