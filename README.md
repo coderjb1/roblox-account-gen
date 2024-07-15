@@ -52,4 +52,4 @@ This project is licensed under the MIT License. See the [LICENSE](./LICENSE) fil
 
 ---
 
-**Note**: This project is for educational purposes only. Misuse of this script to generate mult
+**Note**: This project is for educational purposes only. Misuse of this script to generate multiple accounts or perform any activity that violates the terms of service of any platform, including Roblox, is strictly prohibited and may result in consequences including account suspension or legal action. The creator, coderjb1, is not responsible for any misuse of this software.
