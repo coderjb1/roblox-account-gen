@@ -13,8 +13,36 @@ import requests
 import threading
 import json
 
-def status(text):
+# Logo in paarse kleur
+logo = """
+\033[95m
+▄▄▄        ▄▄▄▄· ▄▄▌        ▐▄• ▄    ▄▄▄·  ▄▄·  ▄▄·       ▄• ▄▌ ▐ ▄ ▄▄▄▄▄   ▄▄ • ▄▄▄ . ▐ ▄
+▀▄ █· ▄█▀▄ ▐█ ▀█▪██•   ▄█▀▄  █▌█▌▪  ▐█ ▀█ ▐█ ▌▪▐█ ▌▪ ▄█▀▄ █▪██▌•█▌▐█•██    ▐█ ▀ ▪▀▄.▀·•█▌▐█
+▐▀▀▄ ▐█▌.▐▌▐█▀▀█▄██ ▪ ▐█▌.▐▌ ·██·   ▄█▀▀█ ██ ▄▄██ ▄▄▐█▌.▐▌█▌▐█▌▐█▐▐▌ ▐█.▪  ▄█ ▀█▄▐▀▀▪▄▐█▐▐▌
+▐█•█▌▐█▌.▐▌██▄▪▐█▐█▌ ▄▐█▌.▐▌▪▐█·█▌  ▐█▪ ▐▌▐███▌▐███▌▐█▌.▐▌▐█▄█▌██▐█▌ ▐█▌·  ▐█▄▪▐█▐█▄▄▌██▐█▌
+.▀  ▀ ▀█▄▀▪·▀▀▀▀ .▀▀▀  ▀█▄▀▪•▀▀ ▀▀   ▀  ▀ ·▀▀▀ ·▀▀▀  ▀█▄▀▪ ▀▀▀ ▀▀ █▪ ▀▀▀   ·▀▀▀▀  ▀▀▀ ▀▀ █▪
+"""
+
+# Titel in gewenste kleuren
+title = """
+\033[92m[✔]    https://github.com/coderjb1         [✔]
+\033[92m[✔]            Version 1.1.0               [✔]
+\033[97m⚠️ This script is made for educational purposes only ⚠️
+"""
+
+def print_logo_and_title():
+    # Clear console
     os.system('cls' if os.name == 'nt' else 'clear')
+
+    # Print logo
+    print(logo)
+
+    # Print title
+    print(title)
+
+def status(text):
+    # Clear console and print logo/title before status
+    print_logo_and_title()
     print("\033[1;32m" + text + "\033[0m")
 
 # Config
@@ -26,14 +54,21 @@ first_names_url = "https://raw.githubusercontent.com/coderjb1/roblox-account-gen
 last_names_url = "https://raw.githubusercontent.com/coderjb1/roblox-account-gen/main/lastname.txt"
 roblox_url = "https://www.roblox.com/"
 
-# Ask if using Discord Webhook
+# Vragen om vertraging tussen accountcreatie
+try:
+    delay_seconds = int(input("Enter delay in seconds between creating each account: "))
+except ValueError:
+    print("Invalid input. Using default delay of 1 second.")
+    delay_seconds = 1
+
+# Vragen of Discord Webhook gebruikt moet worden
 use_discord_webhook = input("Do you want to use a Discord webhook for notifications? (y/n): ").lower().strip()
 discord_webhook_url = ""
 
 if use_discord_webhook == 'y':
     discord_webhook_url = input("Enter your Discord webhook URL: ").strip()
 
-# Check if name loading was successful
+# Controleren of namen succesvol geladen zijn
 status("Getting first names...")
 first_names_response = requests.get(first_names_url)
 status("Getting last names...")
@@ -46,22 +81,22 @@ else:
     status("Name loading failed. Re-Execute the script.")
     sys.exit()
 
-# File path
+# Bestandspad
 account_file = "account.txt"
 
-# Lists of days, months, and years
+# Lijsten van dagen, maanden en jaren
 days = [str(i + 1) for i in range(10, 28)]
 months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 years = [str(i + 1) for i in range(1980, 2004)]
 
-# Password generator (exactly 23 characters long, alphanumeric only)
+# Wachtwoordgenerator (precies 23 tekens lang, alleen alfanumeriek)
 def gen_password(length):
     status("Generating a password...")
     chars = string.ascii_letters + string.digits
     password = ''.join(secrets.choice(chars) for _ in range(length))
-    return password[:23]  # Limit password to 23 characters
+    return password[:23]  # Beperk wachtwoord tot 23 tekens
 
-# Username generator
+# Gebruikersnaamgenerator
 def gen_user(first_names, last_names):
     status("Generating a username...")
     first = secrets.choice(first_names)
@@ -229,13 +264,6 @@ def send_discord_message(username, password):
     except Exception as e:
         status(f"Error sending Discord webhook message: {e}")
 
-# Ask user for delay between account creations
-try:
-    delay_seconds = int(input("Enter delay in seconds between creating each account: "))
-except ValueError:
-    print("Invalid input. Using default delay of 1 second.")
-    delay_seconds = 1
-
-# Create accounts
+# Start het script door het maken van accounts
 while True:
     create_account(roblox_url, first_names, last_names, delay_seconds)
