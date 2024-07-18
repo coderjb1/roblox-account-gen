@@ -1,6 +1,7 @@
 # ⚠️ This script and project is made for educational purposes only ⚠️
 
-# Roblox Account Generator
+# Discord
+dc.gg/coderjb
 
 ## Requirements
 - Python 3.x installed
