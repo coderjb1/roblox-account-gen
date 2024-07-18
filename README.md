@@ -1,7 +1,7 @@
 # ⚠️ This script and project is made for educational purposes only ⚠️
 
 # Discord
-dc.gg/coderjb
+htpps://dc.gg/coderjb
 
 ## Requirements
 - Python 3.x installed
