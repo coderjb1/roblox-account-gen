@@ -1,4 +1,4 @@
-##I have changed it so it isnt opensource but i needed to because of the key system to work if you want i can show you the open source file just send an message about it in my discord server!
+## I have changed it so it isnt opensource but i needed to because of the key system to work if you want i can show you the open source file just send an message about it in my discord server!
 
 # **Lifetime key can be claimed for free in my discord!**
 # Discord
